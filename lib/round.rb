@@ -51,9 +51,10 @@ class Round
 
     puts '****** Game over! ******'
     puts "You had #{@number_correct} correct guesses out of #{@turns.count} for a total score of #{percent_correct}%"
-    puts "STEM - #{percent_correct_by_category(:STEM)}% Correct"
-    puts "Turing Staff - #{percent_correct_by_category(:Turing_Staff)}% Correct"
-    puts "Pop Culture - #{percent_correct_by_category(:Pop_Culture)}% Correct"
+    categories = @deck.cards.map(&:category)
+    categories.uniq.each do |category|
+      puts "#{category} - #{percent_correct_by_category(category)}%"
+    end
   end
 
   def play_turn
