@@ -41,4 +41,27 @@ class Round
     end
     (number_correct_by_category(category).to_f / category_count * 100).round(1)
   end
+
+  def start
+    puts "Welcome! You're playing with #{deck.cards.count} cards."
+    puts '-------------------------------------------------'
+    @deck.cards.count.times do
+      play_turn
+    end
+
+    puts '****** Game over! ******'
+    puts "You had #{@number_correct} correct guesses out of #{@turns.count} for a total score of #{percent_correct}%"
+    puts "STEM - #{percent_correct_by_category(:STEM)}% Correct"
+    puts "Turing Staff - #{percent_correct_by_category(:Turing_Staff)}% Correct"
+    puts "Pop Culture - #{percent_correct_by_category(:Pop_Culture)}% Correct"
+  end
+
+  def play_turn
+    puts "This is card number #{@turns.count + 1} out of #{@deck.cards.count}"
+    puts "Question: #{current_card.question}"
+    input = gets.chomp
+    turn = take_turn(input)
+    puts turn.feedback
+    puts '-------------------------------------------------'
+  end
 end
